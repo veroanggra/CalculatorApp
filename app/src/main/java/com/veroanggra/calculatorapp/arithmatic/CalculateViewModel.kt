@@ -84,7 +84,7 @@ class CalculateViewModel : ViewModel() {
         result += " "
         while (!inputString.isEmpty()) {
             if (inputString.peek() == '(') return "Invalid"
-            result += inputString.pop()?.plus(" ")
+            result += inputString.pop()!! + " "
 
         }
         return result.trim()
@@ -98,7 +98,7 @@ class CalculateViewModel : ViewModel() {
         }
         var i = 0
         while (i < arrayMember.length) {
-            if (arrayMember[1] == '-') {
+            if (arrayMember[i] == '-') {
                 if (arrayMember[i - 1] == '+' ||
                     arrayMember[i - 1] == '-' ||
                     arrayMember[i - 1] == '/' ||
