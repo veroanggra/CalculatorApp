@@ -74,7 +74,7 @@ class CalculateViewModel : ViewModel() {
                         inputString.peek()
                     )
                 ) {
-                    result += "${inputString.pop()}"
+                    result += " ${inputString.pop()} "
                 }
                 inputString.push(s)
                 result += " "
@@ -118,7 +118,7 @@ class CalculateViewModel : ViewModel() {
         else -> true
     }
 
-    private fun evaluation(input: String): Double? {
+    private fun evaluation(input: String): Double {
         var inputString = ""
         val stack = ArrayDeque<Double>()
         for (i in input) {
@@ -140,7 +140,7 @@ class CalculateViewModel : ViewModel() {
                 }
             }
         }
-        return stack.pop()
+        return stack.pop()!!
     }
 
     private fun result(input: String): String {
