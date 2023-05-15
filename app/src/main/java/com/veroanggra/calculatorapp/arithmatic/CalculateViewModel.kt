@@ -10,6 +10,12 @@ import com.veroanggra.calculatorapp.arithmatic.Arithmatic.push
 import kotlin.math.pow
 
 class CalculateViewModel : ViewModel() {
+    var isDarkEnabled = mutableStateOf(false)
+
+    fun setTheme(isDarkTheme: Boolean) {
+        isDarkEnabled.value = isDarkTheme
+    }
+
     var uiCalculateState by mutableStateOf(UICalculateState())
 
     fun onAction(action: CalculateAction) {
