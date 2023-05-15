@@ -11,6 +11,10 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -19,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
+import com.veroanggra.calculatorapp.DataStoreUtil
 import com.veroanggra.calculatorapp.common.NumberButton
 import com.veroanggra.calculatorapp.ui.theme.lightFontYellow
 import com.veroanggra.calculatorapp.ui.theme.lightPurple
@@ -27,8 +32,12 @@ import com.veroanggra.calculatorapp.ui.theme.lightTransparentYellow
 import com.veroanggra.calculatorapp.ui.theme.lightYellow
 
 @Composable
-fun ArithmaticCalculateScreen(modifier: Modifier, calculateViewModel: CalculateViewModel?) {
-    val uiCalculateState = calculateViewModel?.uiCalculateState
+fun ArithmaticCalculateScreen(
+    modifier: Modifier,
+    calculateViewModel: CalculateViewModel,
+    dataStoreUtil: DataStoreUtil
+) {
+    val uiCalculateState = calculateViewModel.uiCalculateState
     val contentWidthCommon = 70.dp
     ConstraintLayout(
         modifier = modifier
@@ -36,7 +45,7 @@ fun ArithmaticCalculateScreen(modifier: Modifier, calculateViewModel: CalculateV
             .padding(start = 30.dp, end = 30.dp)
     ) {
         val (firstSpacer, secondSpacer, inputText, outputText, buttonC, buttonOpenBracket, buttonClosedBracket, buttonX, buttonDivide, button7, button8, button9, button4, button5, button6, buttonMin) = createRefs()
-        val (thirdSpacer, button1, button2, button3, buttonSum, button0, buttonSquare, buttonDel, buttonEqual, buttonDot, fourthSpacer, fifthSpacer, sixSpacer) = createRefs()
+        val (thirdSpacer, button1, button2, button3, buttonSum, button0, buttonSquare, buttonDel, buttonEqual, buttonDot, fourthSpacer, fifthSpacer, sixSpacer, switchButton) = createRefs()
 
         val guidelineTop = createGuidelineFromTop(0.1f)
         createHorizontalChain(
@@ -91,12 +100,12 @@ fun ArithmaticCalculateScreen(modifier: Modifier, calculateViewModel: CalculateV
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                 },
-            text = uiCalculateState?.input ?: "0", textAlign = TextAlign.End,
+            text = uiCalculateState.input, textAlign = TextAlign.End,
             fontWeight = FontWeight.Black, fontSize = 20.sp
         )
 
         Text(
-            text = uiCalculateState?.result ?: "0",
+            text = uiCalculateState.result,
             fontWeight = FontWeight.Bold,
             modifier = Modifier
                 .padding(end = 20.dp)
@@ -109,12 +118,19 @@ fun ArithmaticCalculateScreen(modifier: Modifier, calculateViewModel: CalculateV
                 }, textAlign = TextAlign.End, fontSize = 25.sp
         )
         Spacer(modifier = Modifier
-            .height(20.dp)
+            .height(10.dp)
             .fillMaxWidth()
             .constrainAs(sixSpacer) {
                 start.linkTo(parent.start)
                 top.linkTo(outputText.bottom)
                 end.linkTo(parent.end)
+            })
+        SwitchThemeButton(
+            calculateViewModel = calculateViewModel,
+            dataStoreUtil = dataStoreUtil,
+            modifier = modifier.constrainAs(switchButton) {
+                end.linkTo(parent.end)
+                top.linkTo(sixSpacer.bottom)
             })
         NumberButton(
             symbol = "C",
@@ -124,10 +140,10 @@ fun ArithmaticCalculateScreen(modifier: Modifier, calculateViewModel: CalculateV
                 .width(70.dp)
                 .constrainAs(buttonC) {
                     start.linkTo(parent.start)
-                    top.linkTo(sixSpacer.bottom)
+                    top.linkTo(switchButton.bottom)
                 }
         ) {
-            calculateViewModel?.onAction(CalculateAction.ClearInput)
+            calculateViewModel.onAction(CalculateAction.ClearInput)
         }
         NumberButton(
             symbol = "(",
