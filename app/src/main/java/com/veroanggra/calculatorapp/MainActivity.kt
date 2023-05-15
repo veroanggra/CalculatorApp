@@ -1,5 +1,6 @@
 package com.veroanggra.calculatorapp
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -9,6 +10,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.veroanggra.calculatorapp.arithmatic.ArithmaticCalculateScreen
@@ -17,16 +19,38 @@ import com.veroanggra.calculatorapp.ui.theme.CalculatorAppTheme
 
 class MainActivity : ComponentActivity() {
     val calculateViewModel by viewModels<CalculateViewModel>()
+    private lateinit var dataStoreUtil: DataStoreUtil
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        dataStoreUtil = DataStoreUtil(applicationContext)
+
+        val systemTheme =
+            when (resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                Configuration.UI_MODE_NIGHT_YES -> {
+                    true
+                }
+
+                Configuration.UI_MODE_NIGHT_NO -> {
+                    false
+                }
+
+                else -> {
+                    false
+                }
+            }
         setContent {
-            CalculatorAppTheme {
+            val theme = dataStoreUtil.getTheme(systemTheme).collectAsState(initial = systemTheme)
+            CalculatorAppTheme(darkTheme = theme.value) {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.primary
                 ) {
-                    ArithmaticCalculateScreen(modifier = Modifier, calculateViewModel = calculateViewModel,)
+                    ArithmaticCalculateScreen(
+                        modifier = Modifier,
+                        calculateViewModel = calculateViewModel,
+                        dataStoreUtil = dataStoreUtil
+                    )
                 }
             }
         }
