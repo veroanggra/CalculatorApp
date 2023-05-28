@@ -1,7 +1,6 @@
 package com.veroanggra.calculatorapp.arithmatic
 
 
-import android.content.res.Resources.Theme
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,10 +10,6 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -25,11 +20,8 @@ import androidx.constraintlayout.compose.ChainStyle
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.veroanggra.calculatorapp.DataStoreUtil
 import com.veroanggra.calculatorapp.common.NumberButton
+import com.veroanggra.calculatorapp.ui.component.myColors
 import com.veroanggra.calculatorapp.ui.theme.lightFontYellow
-import com.veroanggra.calculatorapp.ui.theme.lightPurple
-import com.veroanggra.calculatorapp.ui.theme.lightTransparentPurple
-import com.veroanggra.calculatorapp.ui.theme.lightTransparentYellow
-import com.veroanggra.calculatorapp.ui.theme.lightYellow
 
 @Composable
 fun ArithmaticCalculateScreen(
@@ -47,7 +39,7 @@ fun ArithmaticCalculateScreen(
         val (firstSpacer, secondSpacer, inputText, outputText, buttonC, buttonOpenBracket, buttonClosedBracket, buttonX, buttonDivide, button7, button8, button9, button4, button5, button6, buttonMin) = createRefs()
         val (thirdSpacer, button1, button2, button3, buttonSum, button0, buttonSquare, buttonDel, buttonEqual, buttonDot, fourthSpacer, fifthSpacer, sixSpacer, switchButton) = createRefs()
 
-        val guidelineTop = createGuidelineFromTop(0.1f)
+        val guidelineTop = createGuidelineFromTop(0.08f)
         createHorizontalChain(
             buttonC,
             buttonOpenBracket,
@@ -134,7 +126,7 @@ fun ArithmaticCalculateScreen(
             })
         NumberButton(
             symbol = "C",
-            colorBackground = MaterialTheme.colorScheme.secondary,
+            colorBackground = MaterialTheme.myColors.clearButtonColor,
             colorFont = Color.White,
             modifier = Modifier
                 .width(70.dp)
@@ -147,7 +139,7 @@ fun ArithmaticCalculateScreen(
         }
         NumberButton(
             symbol = "(",
-            colorBackground = MaterialTheme.colorScheme.tertiary,
+            colorBackground = MaterialTheme.myColors.numberButtonColor,
             colorFont = lightFontYellow,
             modifier = Modifier
                 .width(70.dp)
@@ -160,7 +152,7 @@ fun ArithmaticCalculateScreen(
         }
         NumberButton(
             symbol = ")",
-            colorBackground = MaterialTheme.colorScheme.tertiary,
+            colorBackground =  MaterialTheme.myColors.numberButtonColor,
             colorFont = lightFontYellow,
             modifier = Modifier
                 .width(70.dp)
@@ -173,8 +165,8 @@ fun ArithmaticCalculateScreen(
         }
         NumberButton(
             symbol = "÷",
-            colorBackground = MaterialTheme.colorScheme.surface,
-            colorFont = MaterialTheme.colorScheme.onSecondary,
+            colorBackground = MaterialTheme.myColors.operationButtonColor,
+            colorFont = MaterialTheme.myColors.fontColorPurple,
             modifier = Modifier
                 .width(70.dp)
                 .constrainAs(buttonDivide) {
@@ -196,8 +188,8 @@ fun ArithmaticCalculateScreen(
 
         NumberButton(
             symbol = "7",
-            colorBackground = MaterialTheme.colorScheme.tertiary,
-            colorFont = MaterialTheme.colorScheme.onPrimary,
+            colorBackground =  MaterialTheme.myColors.numberButtonColor,
+            colorFont = MaterialTheme.myColors.fontColorYellow,
             modifier = Modifier
                 .width(70.dp)
                 .constrainAs(button7) {
@@ -209,8 +201,8 @@ fun ArithmaticCalculateScreen(
         }
         NumberButton(
             symbol = "8",
-            colorBackground = MaterialTheme.colorScheme.tertiary,
-            colorFont = MaterialTheme.colorScheme.onPrimary,
+            colorBackground = MaterialTheme.myColors.numberButtonColor,
+            colorFont = MaterialTheme.myColors.fontColorYellow,
             modifier = Modifier
                 .width(70.dp)
                 .constrainAs(button8) {
@@ -222,8 +214,8 @@ fun ArithmaticCalculateScreen(
         }
         NumberButton(
             symbol = "9",
-            colorBackground = MaterialTheme.colorScheme.tertiary,
-            colorFont = MaterialTheme.colorScheme.onPrimary,
+            colorBackground = MaterialTheme.myColors.numberButtonColor,
+            colorFont = MaterialTheme.myColors.fontColorYellow,
             modifier = Modifier
                 .width(70.dp)
                 .constrainAs(button9) {
@@ -235,8 +227,8 @@ fun ArithmaticCalculateScreen(
         }
         NumberButton(
             symbol = "x",
-            colorBackground = MaterialTheme.colorScheme.surface,
-            colorFont = MaterialTheme.colorScheme.onSecondary,
+            colorBackground = MaterialTheme.myColors.operationButtonColor,
+            colorFont = MaterialTheme.myColors.fontColorPurple,
             modifier = Modifier
                 .constrainAs(buttonX) {
                     top.linkTo(button7.top)
@@ -257,8 +249,8 @@ fun ArithmaticCalculateScreen(
             })
         NumberButton(
             symbol = "4",
-            colorBackground = MaterialTheme.colorScheme.tertiary,
-            colorFont = MaterialTheme.colorScheme.onPrimary,
+            colorBackground = MaterialTheme.myColors.numberButtonColor,
+            colorFont = MaterialTheme.myColors.fontColorYellow,
             modifier = Modifier
                 .width(70.dp)
                 .constrainAs(button4) {
@@ -270,8 +262,8 @@ fun ArithmaticCalculateScreen(
         }
         NumberButton(
             symbol = "5",
-            colorBackground = MaterialTheme.colorScheme.tertiary,
-            colorFont = MaterialTheme.colorScheme.onPrimary,
+            colorBackground = MaterialTheme.myColors.numberButtonColor,
+            colorFont = MaterialTheme.myColors.fontColorYellow,
             modifier = Modifier
                 .width(contentWidthCommon)
                 .constrainAs(button5) {
@@ -283,8 +275,8 @@ fun ArithmaticCalculateScreen(
         }
         NumberButton(
             symbol = "6",
-            colorBackground = MaterialTheme.colorScheme.tertiary,
-            colorFont = MaterialTheme.colorScheme.onPrimary,
+            colorBackground = MaterialTheme.myColors.numberButtonColor,
+            colorFont = MaterialTheme.myColors.fontColorYellow,
             modifier = Modifier
                 .width(contentWidthCommon)
                 .constrainAs(button6) {
@@ -296,8 +288,8 @@ fun ArithmaticCalculateScreen(
         }
         NumberButton(
             symbol = "-",
-            colorBackground = MaterialTheme.colorScheme.surface,
-            colorFont = MaterialTheme.colorScheme.onSecondary,
+            colorBackground = MaterialTheme.myColors.operationButtonColor,
+            colorFont = MaterialTheme.myColors.fontColorPurple,
             modifier = Modifier
                 .width(contentWidthCommon)
                 .constrainAs(buttonMin) {
@@ -318,8 +310,8 @@ fun ArithmaticCalculateScreen(
             })
         NumberButton(
             symbol = "1",
-            colorBackground = MaterialTheme.colorScheme.tertiary,
-            colorFont = MaterialTheme.colorScheme.onPrimary,
+            colorBackground = MaterialTheme.myColors.numberButtonColor,
+            colorFont = MaterialTheme.myColors.fontColorYellow,
             modifier = Modifier
                 .width(contentWidthCommon)
                 .constrainAs(button1) {
@@ -331,8 +323,8 @@ fun ArithmaticCalculateScreen(
         }
         NumberButton(
             symbol = "2",
-            colorBackground = MaterialTheme.colorScheme.tertiary,
-            colorFont = MaterialTheme.colorScheme.onPrimary,
+            colorBackground = MaterialTheme.myColors.numberButtonColor,
+            colorFont = MaterialTheme.myColors.fontColorYellow,
             modifier = Modifier
                 .width(contentWidthCommon)
                 .constrainAs(button2) {
@@ -344,8 +336,8 @@ fun ArithmaticCalculateScreen(
         }
         NumberButton(
             symbol = "3",
-            colorBackground = MaterialTheme.colorScheme.tertiary,
-            colorFont = MaterialTheme.colorScheme.onPrimary,
+            colorBackground = MaterialTheme.myColors.numberButtonColor,
+            colorFont = MaterialTheme.myColors.fontColorYellow,
             modifier = Modifier
                 .width(contentWidthCommon)
                 .constrainAs(button3) {
@@ -357,8 +349,8 @@ fun ArithmaticCalculateScreen(
         }
         NumberButton(
             symbol = "+",
-            colorBackground = MaterialTheme.colorScheme.surface,
-            colorFont = MaterialTheme.colorScheme.onSecondary,
+            colorBackground = MaterialTheme.myColors.operationButtonColor,
+            colorFont = MaterialTheme.myColors.fontColorPurple,
             modifier = Modifier
                 .width(contentWidthCommon)
                 .constrainAs(buttonSum) {
@@ -379,8 +371,8 @@ fun ArithmaticCalculateScreen(
             })
         NumberButton(
             symbol = "0",
-            colorBackground = MaterialTheme.colorScheme.tertiary,
-            colorFont = MaterialTheme.colorScheme.onPrimary,
+            colorBackground = MaterialTheme.myColors.numberButtonColor,
+            colorFont = MaterialTheme.myColors.fontColorYellow,
             modifier = Modifier
                 .width(140.dp)
                 .constrainAs(button0) {
@@ -392,8 +384,8 @@ fun ArithmaticCalculateScreen(
         }
         NumberButton(
             symbol = ".",
-            colorBackground = MaterialTheme.colorScheme.tertiary,
-            colorFont = MaterialTheme.colorScheme.onPrimary,
+            colorBackground = MaterialTheme.myColors.numberButtonColor,
+            colorFont = MaterialTheme.myColors.fontColorYellow,
             modifier = Modifier
                 .width(contentWidthCommon)
                 .constrainAs(buttonDot) {
@@ -405,8 +397,8 @@ fun ArithmaticCalculateScreen(
         }
         NumberButton(
             symbol = "^",
-            colorBackground = MaterialTheme.colorScheme.surface,
-            colorFont = MaterialTheme.colorScheme.onSecondary,
+            colorBackground = MaterialTheme.myColors.operationButtonColor,
+            colorFont = MaterialTheme.myColors.fontColorPurple,
             modifier = Modifier
                 .width(contentWidthCommon)
                 .constrainAs(buttonSquare) {
@@ -418,8 +410,8 @@ fun ArithmaticCalculateScreen(
         }
         NumberButton(
             symbol = "←",
-            colorBackground = MaterialTheme.colorScheme.surface,
-            colorFont = MaterialTheme.colorScheme.onSecondary,
+            colorBackground = MaterialTheme.myColors.operationButtonColor,
+            colorFont = MaterialTheme.myColors.fontColorPurple,
             modifier = Modifier
                 .width(contentWidthCommon)
                 .constrainAs(buttonDel) {
@@ -439,7 +431,7 @@ fun ArithmaticCalculateScreen(
             })
         NumberButton(
             symbol = "=",
-            colorBackground = MaterialTheme.colorScheme.background,
+            colorBackground = MaterialTheme.myColors.calculateButtonColor,
             colorFont = Color.White,
             modifier = Modifier
                 .width(210.dp)
