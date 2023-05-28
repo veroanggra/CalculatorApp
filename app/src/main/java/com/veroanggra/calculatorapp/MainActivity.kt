@@ -10,11 +10,14 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.veroanggra.calculatorapp.arithmatic.ArithmaticCalculateScreen
 import com.veroanggra.calculatorapp.arithmatic.CalculateViewModel
+import com.veroanggra.calculatorapp.ui.component.CustomButtonColorGuideline
+import com.veroanggra.calculatorapp.ui.component.myColors
 import com.veroanggra.calculatorapp.ui.theme.CalculatorAppTheme
 
 class MainActivity : ComponentActivity() {
@@ -44,7 +47,7 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.primary
+                    color = MaterialTheme.myColors.backgroundColor
                 ) {
                     ArithmaticCalculateScreen(
                         modifier = Modifier,
